@@ -67,12 +67,6 @@
         </div>
       </div>
 
-      <!-- Customer Service Button -->
-      <button class="nav-link btn-green-nav" onclick="if(typeof markStudentMessagesAsRead === 'function') markStudentMessagesAsRead(); if(typeof openMessagingModal === 'function') openMessagingModal(); else showCustomerServiceAlert();" title="Hubungi Customer Service">
-        <i class="bi bi-chat-left-dots"></i><span class="ms-2">Customer Service</span>
-        <span id="msgBadgeHeader" class="badge bg-danger" style="margin-left: 5px; font-size: 10px; display: none;">!</span>
-      </button>
-
       <!-- Profile Link -->
       <a class="nav-link btn-green-nav" href="/profile.html" title="Lihat Profil">
         <i class="bi bi-person"></i><span class="ms-2">Profil</span>
@@ -131,12 +125,6 @@
         <a href="https://uhn.ac.id/pascasarjana/" target="_blank" class="list-group-item list-group-item-action ps-5">» Pasca Sarjana</a>
       </div>
 
-      <!-- Biaya/UKT -->
-      <a href="#" class="list-group-item list-group-item-action mobile-menu-item" 
-   onclick="event.preventDefault(); openUKTModal();" 
-   data-bs-dismiss="offcanvas">
-  <i class="bi bi-file-pdf me-3"></i> Biaya / UKT
-  </a>
       <!-- Customer Service -->
       <button class="list-group-item list-group-item-action mobile-menu-item" type="button" onclick="handleMobileCustomerService()" data-bs-dismiss="offcanvas">
         <i class="bi bi-chat-left-dots me-3"></i> Customer Service
@@ -560,6 +548,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 } catch (e) { console.error('Error loading UKT:', e); }
             })();
         }
+
+        
 // <i class="fas fa-check-circle text-success"></i> REAL-TIME MESSAGE BADGE POLLING (Sync dengan dashboard)
 // Poll untuk unread messages setiap 5 detik
 setInterval(function() {
