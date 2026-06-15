@@ -131,26 +131,18 @@
         <a href="https://uhn.ac.id/pascasarjana/" target="_blank" class="list-group-item list-group-item-action ps-5">» Pasca Sarjana</a>
       </div>
 
-      <!-- Alur Pendaftaran -->
-      <a href="#footerSection" class="list-group-item list-group-item-action mobile-menu-item" data-bs-dismiss="offcanvas">
-        <i class="bi bi-diagram-3 me-3"></i> Alur Pendaftaran
-      </a>
-
       <!-- Biaya/UKT -->
-      <a href="#" id="downloadBiayaMobile" class="list-group-item list-group-item-action mobile-menu-item" data-bs-toggle="modal" data-bs-target="#biayaUktModal" onclick="event.preventDefault(); event.stopPropagation();" data-bs-dismiss="offcanvas">
-        <i class="bi bi-file-pdf me-3"></i> Biaya / UKT
-      </a>
-
+      <a href="#" class="list-group-item list-group-item-action mobile-menu-item" 
+   onclick="event.preventDefault(); openUKTModal();" 
+   data-bs-dismiss="offcanvas">
+  <i class="bi bi-file-pdf me-3"></i> Biaya / UKT
+  </a>
       <!-- Customer Service -->
       <button class="list-group-item list-group-item-action mobile-menu-item" type="button" onclick="handleMobileCustomerService()" data-bs-dismiss="offcanvas">
         <i class="bi bi-chat-left-dots me-3"></i> Customer Service
         <span id="msgBadgeMobile" class="badge bg-danger float-end" style="display: none;">!</span>
       </button>
 
-      <!-- Profile -->
-      <a href="/profile.html" class="list-group-item list-group-item-action mobile-menu-item" data-bs-dismiss="offcanvas">
-        <i class="bi bi-person me-3"></i> Profile
-      </a>
 
       <hr class="my-2">
 
@@ -522,6 +514,52 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+        // Modal untuk UKT / Tentang
+        function openUKTModal() {
+            (async () => {
+                try {
+                    let driveId = '1BsgxBsQxOHmQxNKYttBmrfTC4yUlje0Y';
+                    try {
+                        const response = await fetch('/api/public/settings/system-links/name/UKT');
+                        if (response.ok) {
+                            const result = await response.json();
+                            if (result.success && result.data && result.data.linkUrl) {
+                                const match = result.data.linkUrl.match(/\/d\/([^/]+)/);
+                                if (match) driveId = match[1];
+                            }
+                        }
+                    } catch (e) { console.log('Using default UKT URL'); }
+
+                    const driveUrl = `https://drive.google.com/file/d/${driveId}/preview`;
+                    const viewUrl = `https://drive.google.com/file/d/${driveId}/view`;
+
+                    const modal = document.createElement('div');
+                    modal.id = 'uktModal';
+                    modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); animation: fadeIn 0.3s ease;';
+                    modal.onclick = (e) => { if(e.target === modal) closeModalWithAnimation(modal); };
+                    
+                    modal.innerHTML = `
+                        <div style="position: relative; width: 100%; max-width: 1100px; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s ease;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; border-bottom: 1px solid #eee; background: linear-gradient(135deg, #f8fbfa 0%, #f0f8f5 100%);">
+                                <h3 style="margin: 0; color: #1a5a3a; font-weight: 700; font-size: 20px;">Tentang UKT</h3>
+                                <div style="display: flex; gap: 12px; align-items: center;">
+                                    <a href="${viewUrl}" target="_blank" style="background: linear-gradient(135deg, #16c784 0%, #138d63 100%); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; transition: all 0.3s ease; border: none; cursor: pointer;">
+                                        <i class="fas fa-external-link-alt" style="margin-right: 8px;"></i> Kunjungi Link
+                                    </a>
+                                    <button onclick="closeModalWithAnimation(document.getElementById('uktModal'))" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="background: #f5f5f5; padding: 20px; position: relative; height: 0; padding-bottom: 56.25%;">
+                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 0 0 16px 16px;" src="${driveUrl}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                } catch (e) { console.error('Error loading UKT:', e); }
+            })();
+        }
 // <i class="fas fa-check-circle text-success"></i> REAL-TIME MESSAGE BADGE POLLING (Sync dengan dashboard)
 // Poll untuk unread messages setiap 5 detik
 setInterval(function() {

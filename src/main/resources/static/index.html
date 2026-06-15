@@ -584,6 +584,7 @@
 
         .offcanvas-body .nav-link {
     color: black !important;
+    
 }
 
         .jadwal-item {
@@ -726,9 +727,23 @@
                 height: 32px !important;
                 margin-right: 6px !important;
             }
+                .custom-navbar {
+                --bs-navbar-color: #ffffff;
+                --bs-navbar-toggler-border-color: #ffffff;
+            }
+
             .navbar-toggler {
                 flex-shrink: 0;
                 padding: 4px 8px;
+                border: 1px solid #ffffff;
+            }
+
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+
+            .navbar-toggler-icon {
+                filter: brightness(0) invert(1);
             }
 
             /* Alur header buttons stack on mobile */
@@ -793,12 +808,16 @@
             PMB HKBP Nommensen
         </a>
 
-        <!-- Hamburger -->
-        <button class="navbar-toggler" type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#mobileMenu">
+         <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#mobileMenu"
+                aria-controls="mobileMenu">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
+
 
         <!-- Desktop Menu -->
         <div class="collapse navbar-collapse">
