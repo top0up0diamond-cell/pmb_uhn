@@ -3,6 +3,7 @@
 // ============================================
 console.log('🔴 [INIT] components-init.js LOADED at', new Date().toISOString());
 
+
 // Visible debug panel
 function createDebugPanel() {
     const panel = document.createElement('div');
@@ -63,43 +64,68 @@ function ensureContainers() {
     }
 }
 
-// Load component with XMLHttpRequest (more reliable)
+async function loadFooterContactInfo() {
+    const container = document.getElementById('contact-info-container');
+    if (!container) return;
+
+    try {
+        const response = await fetch('/api/public/settings/contact-info');
+        const result = await response.json();
+
+        if (result.success && result.data) {
+            const contact = result.data;
+            container.innerHTML = `
+                <p><i class="fas fa-map-marker-alt"></i><span>${contact.address || 'N/A'}</span></p>
+                <p><i class="fas fa-phone"></i><a href="tel:${(contact.phone || '').replace(/[^0-9+]/g, '')}">${contact.phone || 'N/A'}</a></p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:${contact.email || ''}">${contact.email || 'N/A'}</a></p>
+                <p><i class="fas fa-clock"></i><span>${contact.operatingHours || 'N/A'}</span></p>
+            `;
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
 function loadComponent(componentName, containerId) {
     updateDebugPanel(`🔴 Loading ${componentName}...`);
-    
+
     const container = document.getElementById(containerId);
     if (!container) {
         updateDebugPanel(`  ❌ Container ${containerId} NOT FOUND!`);
         return;
     }
-    
+
     const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
+
                 container.innerHTML = xhr.responseText;
-                updateDebugPanel(`  ✅ ${componentName} LOADED (${xhr.responseText.length} bytes)`);
-                
-                // Load associated scripts if they exist
+                updateDebugPanel(`  ✅ ${componentName} LOADED`);
+
+                // HEADER INIT
                 if (componentName === 'header' && typeof window.initHeader === 'function') {
                     window.initHeader();
                 }
+
+                // FOOTER INIT (INI YANG BENAR)
+                if (componentName === 'footer') {
+                    if (typeof window.loadFooterContactInfo === 'function') {
+                        window.loadFooterContactInfo();
+                    }
+                }
+
             } else {
                 updateDebugPanel(`  ❌ ${componentName} FAILED: ${xhr.status}`);
             }
         }
     };
-    
-    xhr.onerror = function() {
+
+    xhr.onerror = function () {
         updateDebugPanel(`  ❌ XHR Error: ${componentName}`);
     };
-    
-    try {
-        xhr.open('GET', `/components/${componentName}.html`, true);
-        xhr.send();
-    } catch (e) {
-        updateDebugPanel(`  ❌ Exception: ${componentName}`);
-    }
+
+    xhr.open('GET', `/components/${componentName}.html`, true);
+    xhr.send();
 }
 
 // Main initialization
