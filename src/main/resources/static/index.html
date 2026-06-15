@@ -1080,6 +1080,14 @@
             initializeGallery();
         }
 
+            function getWaveTypeLabel(waveType) {
+    const labels = {
+        'EARLY_NO_TEST':   'Jalur Bebas Tes (Sebelum UTBK)',
+        'RANKING_NO_TEST': 'Jalur Bebas Tes (Syarat Ranking)',
+        'REGULAR_TEST':    'Jalur Ujian Reguler'
+    };
+    return labels[waveType] || waveType;
+}
         // ===== LANDING PAGE API FUNCTIONS =====
         async function loadGelombangData() {
             try {
@@ -1091,7 +1099,7 @@
                     container.innerHTML = gelombangList.map(gel => `
                         <div class="jadwal-card">
                             <h4><i class="fas fa-calendar-alt"></i> ${gel.name}</h4>
-                            <div class="jadwal-item"><span class="jadwal-label">Tipe:</span><span class="jadwal-value">${gel.waveType}</span></div>
+                            <div class="jadwal-item"><span class="jadwal-label">Jalur:</span><span class="jadwal-value">${getWaveTypeLabel(gel.waveType)}</span></div>
                             <div class="jadwal-item"><span class="jadwal-label">Pendaftaran:</span><span class="jadwal-value">${new Date(gel.regStartDate).toLocaleDateString('id-ID')} - ${new Date(gel.regEndDate).toLocaleDateString('id-ID')}</span></div>
                             <div class="jadwal-item"><span class="jadwal-label">Ujian:</span><span class="jadwal-value">${gel.examDate ? new Date(gel.examDate).toLocaleDateString('id-ID') : 'Tidak ada'}</span></div>
                             <div class="jadwal-item"><span class="jadwal-label">Status:</span><span class="jadwal-value" style="color: ${gel.status === 'OPEN' ? '#16c784' : '#e74c3c'};">${gel.status}</span></div>

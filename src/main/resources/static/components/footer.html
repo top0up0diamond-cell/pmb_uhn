@@ -1,11 +1,10 @@
-<footer class="footer-main">
+<footer class="footer-main" id="kontak">
     <div class="footer-container">
-        <!-- Row 1: Main Content -->
         <div class="footer-grid">
             <!-- Column 1: University Info -->
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="../../logo/logokampus.png" alt="Logo UHN" style="height: 80px; margin-bottom: 15px; object-fit: contain;">
+                    <img src="/logo/logokampus.png" alt="Logo UHN">
                     <h3>UHN NOMMENSEN</h3>
                 </div>
                 <p class="footer-description">
@@ -33,16 +32,13 @@
             <div class="footer-section">
                 <h4 class="footer-section-title">Hubungi Kami</h4>
                 <div class="footer-contact" id="contact-info-container">
-                    <!-- Content loaded dynamically from API -->
-                    <p><i class="fas fa-spinner fa-spin"></i> Loading...</p>
+                    <p><i class="fas fa-spinner fa-spin"></i> <span>Loading...</span></p>
                 </div>
             </div>
         </div>
 
-        <!-- Divider -->
         <div class="footer-divider"></div>
 
-        <!-- Row 2: Bottom Info -->
         <div class="footer-bottom">
             <div class="footer-bottom-left">
                 <p>&copy; 2025 Universitas HKBP Nommensen. Semua hak cipta dilindungi.</p>
@@ -74,7 +70,6 @@
     .footer-container {
         max-width: 1200px;
         margin: 0 auto;
-        margin-bottom: -5%;
     }
 
     .footer-grid {
@@ -89,7 +84,6 @@
         flex-direction: column;
     }
 
-    /* Logo & Description */
     .footer-logo {
         display: flex;
         flex-direction: column;
@@ -109,9 +103,6 @@
         font-size: 18px;
         font-weight: 700;
         margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 8px;
         letter-spacing: 0.5px;
     }
 
@@ -122,7 +113,6 @@
         font-size: 13px;
     }
 
-    /* Social Media Links */
     .footer-social {
         display: flex;
         gap: 15px;
@@ -149,7 +139,6 @@
         transform: translateY(-3px);
     }
 
-    /* Section Title */
     .footer-section-title {
         color: #27ae60;
         font-size: 16px;
@@ -159,7 +148,6 @@
         border-bottom: 2px solid rgba(39, 174, 96, 0.3);
     }
 
-    /* Links in Footer */
     .footer-links {
         list-style: none;
         padding: 0;
@@ -190,7 +178,6 @@
         width: 16px;
     }
 
-    /* Contact Info */
     .footer-contact {
         display: flex;
         flex-direction: column;
@@ -204,6 +191,7 @@
         gap: 12px;
         line-height: 1.5;
         font-size: 13px;
+        align-items: flex-start;
     }
 
     .footer-contact i {
@@ -223,14 +211,12 @@
         text-decoration: underline;
     }
 
-    /* Divider */
     .footer-divider {
         height: 1px;
         background: rgba(39, 174, 96, 0.2);
         margin: 30px 0;
     }
 
-    /* Bottom Footer */
     .footer-bottom {
         display: flex;
         justify-content: space-between;
@@ -242,14 +228,8 @@
         font-size: 12px;
     }
 
-    .footer-bottom-left {
-        flex: 1;
-        color: #b8c5d6;
-    }
-
-    .footer-bottom-left p {
-        margin: 0;
-    }
+    .footer-bottom-left { flex: 1; color: #b8c5d6; }
+    .footer-bottom-left p { margin: 0; }
 
     .footer-bottom-center {
         display: flex;
@@ -261,126 +241,55 @@
     .footer-bottom-center a {
         color: #27ae60;
         text-decoration: none;
-        transition: color 0.3s ease;
         font-size: 12px;
     }
 
-    .footer-bottom-center a:hover {
-        text-decoration: underline;
-    }
+    .footer-bottom-center a:hover { text-decoration: underline; }
+    .footer-bottom-center .divider { color: rgba(39, 174, 96, 0.5); }
 
-    .footer-bottom-center .divider {
-        color: rgba(39, 174, 96, 0.5);
-    }
+    .footer-bottom-right { color: #b8c5d6; font-size: 12px; }
+    .footer-bottom-right strong { color: #27ae60; }
 
-    .footer-bottom-right {
-        color: #b8c5d6;
-        font-size: 12px;
-    }
-
-    .footer-bottom-right strong {
-        color: #27ae60;
-    }
-
-    /* Responsive Design */
     @media (max-width: 768px) {
-        .footer-main {
-            padding: 40px 20px 0;
-            margin-top: 50px;
-        }
-
-        .footer-grid {
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-bottom {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .footer-bottom-left,
-        .footer-bottom-right {
-            flex: 1;
-            width: 100%;
-        }
-
-        .footer-bottom-center {
-            justify-content: center;
-            width: 100%;
-        }
-
-        .footer-social {
-            justify-content: flex-start;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .footer-logo h3 {
-            font-size: 18px;
-        }
-
-        .footer-section-title {
-            font-size: 14px;
-        }
-
-        .footer-bottom {
-            font-size: 11px;
-        }
-
-        .footer-social {
-            gap: 10px;
-        }
-
-        .footer-social a {
-            width: 36px;
-            height: 36px;
-            font-size: 14px;
-        }
+        .footer-main { padding: 40px 20px 0; margin-top: 50px; }
+        .footer-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 30px; }
+        .footer-bottom { flex-direction: column; text-align: center; }
+        .footer-bottom-left, .footer-bottom-right { flex: 1; width: 100%; }
+        .footer-bottom-center { justify-content: center; width: 100%; }
     }
 </style>
 
 <script>
-// Load contact info dynamically from API
 async function loadFooterContactInfo() {
+    const container = document.getElementById('contact-info-container');
+    if (!container) return;
+
     try {
         const response = await fetch('/api/public/settings/contact-info');
         const result = await response.json();
-        
+
         if (result.success && result.data) {
             const contact = result.data;
-            const container = document.getElementById('contact-info-container');
-            
             container.innerHTML = `
-                <p>
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>${contact.address || 'N/A'}</span>
-                </p>
-                <p>
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:${contact.phone?.replace(/[^0-9+]/g, '')}">${contact.phone || 'N/A'}</a>
-                </p>
-                <p>
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:${contact.email}">${contact.email || 'N/A'}</a>
-                </p>
-                <p>
-                    <i class="fas fa-clock"></i>
-                    <span>${contact.operatingHours || 'N/A'}</span>
-                </p>
+                <p><i class="fas fa-map-marker-alt"></i><span>${contact.address || 'N/A'}</span></p>
+                <p><i class="fas fa-phone"></i><a href="tel:${(contact.phone || '').replace(/[^0-9+]/g, '')}">${contact.phone || 'N/A'}</a></p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:${contact.email || ''}">${contact.email || 'N/A'}</a></p>
+                <p><i class="fas fa-clock"></i><span>${contact.operatingHours || 'N/A'}</span></p>
             `;
+        } else {
+            throw new Error('Data not found');
         }
     } catch (error) {
         console.error('Error loading contact info:', error);
-        // Show fallback if API fails
-        document.getElementById('contact-info-container').innerHTML = `
-            <p><i class="fas fa-exclamation-circle"></i> <span>Contact info unavailable</span></p>
+        container.innerHTML = `
+            <p><i class="fas fa-map-marker-alt"></i><span>Jl. Jamin Ginting No. 102, Medan 20154</span></p>
+            <p><i class="fas fa-phone"></i><span>(061) 8201920</span></p>
+            <p><i class="fas fa-envelope"></i><a href="mailto:info@uhn.ac.id">info@uhn.ac.id</a></p>
+            <p><i class="fas fa-clock"></i><span>Senin - Jumat, 08.00 - 16.00 WIB</span></p>
         `;
     }
 }
 
-// Load on page load
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadFooterContactInfo);
 } else {
